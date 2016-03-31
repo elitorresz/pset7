@@ -27,10 +27,7 @@
             please");
         }
         
-        if (CS50::query("INSERT IGNORE INTO users (username, hash, cash, name, 
-        last_name) VALUES(?, ?, 10000.0000, ?, ?,?)", $_POST["username"], 
-        password_hash($_POST["password"], PASSWORD_DEFAULT),  $_POST["name"], 
-        $_POST["last_name"]) == 0)
+        if (CS50::query("INSERT IGNORE INTO users (username, hash, cash, name, last_name) VALUES(?, ?, 10000.0000, ?, ?)", $_POST["username"], password_hash($_POST["password"], PASSWORD_DEFAULT),  $_POST["name"], $_POST["last_name"]) == 0)
         {
             apologize("This username already exists, pick another one please.");
         }
