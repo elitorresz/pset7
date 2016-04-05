@@ -1,5 +1,6 @@
 <?php
     // configuration
+    // no los inserta en history
     require("../includes/config.php"); 
     
     if ($_SERVER["REQUEST_METHOD"] == "GET")

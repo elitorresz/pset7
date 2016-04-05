@@ -62,7 +62,7 @@
         
         // poner en history
         CS50::query("INSERT INTO history (transaction, date, symbol, user_id, 
-        shares, price) VALUES ('BUY', NOW(), ? , ? , ?, ?)", $_POST["symbol"],
+        shares, price) VALUES ('BUY', NOW(), ? , ? , ?, ?)", strtoupper($_POST["symbol"]),
         $_SESSION["id"], $_POST["shares"], $stock["price"]);
 
         redirect("/");

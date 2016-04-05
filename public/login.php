@@ -22,14 +22,14 @@
         {
             apologize("You must provide your password.");
         }
-
+        
         // query database for user
         $rows = CS50::query("SELECT * FROM users WHERE username = ?", $_POST["username"]);
 
         // if we found user, check password
         if (count($rows) == 1)
         {
-            // first (and only) row
+            // first row
             $row = $rows[0];
 
             // compare hash of user's input against hash that's in database
