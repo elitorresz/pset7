@@ -1,6 +1,5 @@
 <?php
     // configuration
-    // no los inserta en history
     require("../includes/config.php"); 
     
     if ($_SERVER["REQUEST_METHOD"] == "GET")
@@ -12,6 +11,10 @@
     // if the form was submitted
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
+        // how many stocks you'll sell
+        $sharerows = CS50::query("SELECT shares FROM Portfolio WHERE user_id = ? AND Symbol = ?",$_SESSION["id"],$_POST["symbol"]);
+        $numofshares = $sharerows[0]["shares"];
+        
         // lookup stock - money
         $stock = lookup($_POST["symbol"]);
         
@@ -29,19 +32,54 @@
             apologize("Write a stock, please");
         }
         
+        // if the number you want to sell is incorrect
+        if ($numofshares < $_POST["shares"])
+        {
+            apologize("Write a correct number of shares, please");
+        }
+        
+        else if (!preg_match("/^\d+$/", $_POST["shares"]))
+        {
+            if($_POST["shares"] != "ALL")
+            {
+                apologize("Write a correct number of shares, please");
+            }
+        } 
+        
+        // modificar cash
         $cash = $shares[0]["shares"] * $stock["price"];
         
-        // borrar cosas
-        CS50::query("DELETE FROM Portfolio WHERE user_id = ? AND symbol = ?", $_SESSION["id"], strtoupper($_POST["symbol"]));
+        if ($numofshares > $_POST["shares"])
+        {
+           // Change cash
+            $cashnuevo = $_POST["shares"] * $stock["price"];
+                
+            // Modificar
+            CS50::query("UPDATE users SET cash = cash + $cashnuevo WHERE id = ?", $_SESSION["id"]);
+                
+            CS50::query("UPDATE Portfolio SET shares = shares - ? WHERE user_id = ? AND symbol = ?",  $_POST["shares"], $_SESSION["id"], $_POST["symbol"]);
+            
+            //update history
+            CS50::query("INSERT INTO history (user_id, transaction, date, symbol, shares, price) VALUES (?, 'SELL', NOW(), ?, ?, ?)",
+            $_SESSION["id"], $_POST["symbol"],$_POST["shares"], $stock["price"]);
         
-        // cash balance cambia
-        CS50::query("UPDATE users SET cash = cash + ? WHERE id = ?", $cash, $_SESSION["id"]);
-        
-        // poner en history buy
-        CS50::query("INSERT INTO history (transaction, date, symbol, user_id,
-        shares, price) VALUES ('SELL', NOW(), ? , ? , ?, ?)", strtoupper($_POST["symbol"]),
-        $_SESSION["id"], $_POST["shares"], $stock["price"]);
-        
+        }
+            
+        else if ($numofshares == $_POST["shares"] || $_POST["shares"] == "ALL" )
+        {
+            // Change cash
+            $cashnuevo = $sharerows[0]["shares"] * $stock["price"];
+                
+            // Modificar
+            CS50::query("UPDATE users SET cash = cash + $cashnuevo WHERE id = ?", $_SESSION["id"]);
+                
+            // Remove stock from portfolio
+            $rows = CS50::query("DELETE FROM Portfolio WHERE user_id = ? AND Symbol = ?", $_SESSION["id"],$_POST["symbol"]);
+                
+            // Update history
+            CS50::query("INSERT INTO history (user_id, transaction, date, symbol, shares, price) VALUES (?, 'SELL', NOW(), ?, ?, ?)",
+            $_SESSION["id"], $_POST["symbol"],$sharerows[0]["shares"], $stock["price"]);
+        }
         redirect("/");
     }
 ?>
