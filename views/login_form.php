@@ -1,3 +1,5 @@
+<head> <style type="text/css"> body { background-color: #E0688E; font-family: Georgia; color:#6F0728 } </style> </head>
+
 <form action="login.php" method="post">
     <fieldset>
         <div class="form-group">
