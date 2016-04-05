@@ -1,3 +1,5 @@
+<head> <style type="text/css"> body { background-color: #D0B598; font-family: Arial; color:#190F05 } </style> </head>
+
 <form action="sell.php" method="post"> 
     <div class="form-group">
         <select class ="form-control" name = "symbol">
@@ -18,7 +20,7 @@
 
     <div class="form-group">
         <button class="btn btn-default" type="submit">
-            <span aria-hidden="true" class="glyphicon glyphicon-log-in"></span>
+            <span aria-hidden="true" class="glyphicon glyphicon-hand-right"></span>
             Sell
         </button>
     </div>
