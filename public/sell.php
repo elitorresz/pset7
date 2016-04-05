@@ -37,8 +37,10 @@
         // cash balance cambia
         CS50::query("UPDATE users SET cash = cash + ? WHERE id = ?", $cash, $_SESSION["id"]);
         
-        // poner en history
-        CS50::query("INSERT INTO history (transaction, symbol, shares, user_id, price) VALUES('SELL', ?, ?, ?, ?)", $_POST["code"], $shares[0]["shares"], $_SESSION["id"], $stock["price"]);
+        // poner en history buy
+        CS50::query("INSERT INTO history (transaction, date, symbol, user_id,
+        shares, price) VALUES ('SELL', NOW(), ? , ? , ?, ?)", strtoupper($_POST["symbol"]),
+        $_SESSION["id"], $_POST["shares"], $stock["price"]);
         
         redirect("/");
     }
