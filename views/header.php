@@ -26,7 +26,8 @@
     </head>
 
     <body>
-
+        <style type="text/css"> body {font-family: Arial; color:#471063 } </style>
+        
         <div class="container">
 
             <div id="top">
@@ -35,6 +36,7 @@
                 </div>
                 <?php if (!empty($_SESSION["id"])): ?>
                     <ul class="nav nav-pills">
+                        <li><a href="/"> <?= $name2 ?> <?= $last_name ?> </a></li>
                         <li><a href="quote.php">Quote</a></li>
                         <li><a href="buy.php">Buy</a></li>
                         <li><a href="sell.php">Sell</a></li>

@@ -1,3 +1,5 @@
+<head> <style type="text/css"> body { background-color: #46D2CD; font-family: Courier; color:#A346D2 } </style> </head>
+
 <table class = "table table-condensed">
 <thead>
     <tr>

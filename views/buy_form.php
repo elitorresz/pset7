@@ -1,3 +1,5 @@
+<head> <style type="text/css"> body { background-color: #DCE892; font-family: Verdana; color:#11094E } </style> </head>
+
 <form action="buy.php" method="post"> 
 <fieldset>
     <div class="form-group">

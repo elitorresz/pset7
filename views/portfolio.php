@@ -3,7 +3,7 @@
     <tr>
         <th>Name</th>
         <th>Symbol</th>
-        <th>Sharezzzzzz</th>
+        <th>Shares</th>
         <th>Price</th>
         <th>Total</th>
     </tr>
