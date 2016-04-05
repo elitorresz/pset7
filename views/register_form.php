@@ -1,4 +1,4 @@
-<head> <style type="text/css"> body { background-color: #B098D0; font-family: Courier New; color:#AC8EE6 } </style> </head>
+<head> <style type="text/css"> body { background-color: #B098D0; font-family: Arial; color:#AC8EE6 } </style> </head>
 <form action="register.php" method="post">
     <fieldset>
         
@@ -24,7 +24,7 @@
         <div class="form-group">
             <button class="btn btn-default" type="submit">
                 <span aria-hidden="true" class="glyphicon glyphicon-log-in"></span>
-                <h3>Register</h3>
+                Register
             </button>
         </div>
     </fieldset>
